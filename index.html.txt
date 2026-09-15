@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Koin Meme Saya</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #1a1a2e; color: #fff; padding: 50px; }
+        .card { background: #162447; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        button { background: #e43f5a; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #ff4a6e; }
+        #status { margin-top: 20px; color: #00fff0; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🚀 Selamat Datang di Koin Meme Saya!</h1>
+        <p>Meme koin native pertama yang siap meluncur di Jaringan Arc.</p>
+        <hr style="border-color: #1f4068;">
+        
+        <!-- Tombol untuk Connect Wallet ke MetaMask -->
+        <button id="connectBtn" onclick="connectWallet()">Hubungkan ke MetaMask</button>
+        <p id="status">Dompet Belum Terhubung</p>
+    </div>
+
+    <!-- Mengimpor library ethers.js untuk koneksi ke Blockchain -->
+    <script src="https://cloudflare.com"></script>
+    
+    <script>
+        async function connectWallet() {
+            // Memeriksa apakah browser memiliki ekstensi MetaMask
+            if (window.ethereum) {
+                try {
+                    // Meminta pengguna menyambungkan dompet mereka
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    
+                    // Memperbarui teks status di layar web
+                    document.getElementById('status').innerText = "Terhubung: " + account.substring(0, 6) + "..." + account.substring(account.length - 4);
+                    document.getElementById('connectBtn').innerText = "Wallet Connected ✅";
+                } catch (error) {
+                    document.getElementById('status').innerText = "Koneksi dibatalkan pengguna.";
+                }
+            } else {
+                alert("Harap instal ekstensi MetaMask di browser Anda!");
+            }
+        }
+    </script>
+</body>
+</html>
